@@ -1,0 +1,37 @@
+create database alevines;
+create table especie(
+   nombre varchar(30),
+  descrip varchar(150),
+  ph_min float,
+ph_max float,
+id int not null AUTO_INCREMENT PRIMARY key);
+
+CREATE TABLE usuario(
+ id int not null AUTO_INCREMENT PRIMARY KEY,
+ nombre varchar(50),
+ contraseña varchar(20),
+  correo varchar(30));
+
+CREATE TABLE cultivo( 
+  nombre varchar(50),
+  cantidad int,
+  id int not null AUTO_INCREMENT PRIMARY key,
+  dia_inicial int,
+  idespecie int,
+  idusuario int,
+  FOREIGN KEY (idespecie) REFERENCES especie(id),
+  FOREIGN KEY (idusuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE info_ph(
+ id int not null AUTO_INCREMENT PRIMARY KEY,
+ dato_ph float,
+ fecha date,
+ dia int,
+ idcultivo int,
+ FOREIGN KEY (idcultivo) REFERENCES cultivo(id));
+
+
+**Nota**
+Consulta para traer los datos de un cultivo es especifico
+SELECT info_ph.dato_ph, cultivo.nombre from info_ph INNER JOIN cultivo on info_ph.idcultivo=cultivo.id WHERE cultivo.nombre="Cachamas Yurley"
